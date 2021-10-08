@@ -62,7 +62,7 @@ if (isset($_POST["deleteTask"])) {
             <span aria-hidden='true'>&times;</span>
             </button>
             </div>";
-        header("refresh:1; url=index.php");
+            header( "refresh:1; url=index.php" );
     } else {
         echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                        <strong>Task not added!</strong> There must be some issue.
@@ -107,6 +107,7 @@ if (isset($_POST["updateTask"])) {
             <span aria-hidden='true'>&times;</span>
             </button>
             </div>";
+            header( "refresh:1; url=index.php" );
         } else {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
                        <strong>Task not Edited!</strong> There must be some issue.
@@ -129,12 +130,54 @@ if (isset($_POST["updateTask"])) {
         <h1 class="h3 mt-3 mb-1 text-gray-800">To Do Task App</h1>
         <div class="card shadow mt-4">
             <div class="card-header py-3">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#inputForm">Add Task</button>
-<div class="modal fade inputForm" id="inputForm" tabindex="-1" role="dialog" aria-labelledby="inputForm" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
+                <h6 class="m-0 font-weight-bold text-primary">List of Tasks</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Tasks</th>
+                                <th class="text-center">Action</th>
 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1;
+                            while ($row = mysqli_fetch_array($viewTask)) {?>
+                            <tr>
+                                <td class="text-center"><?php echo $i; ?></td>
+                                <td class="text-center"><?php echo $row["taskName"]; ?></td>
+                                <td class="text-center">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <form method="POST">
+                                                <input type="hidden" name="taskId"
+                                                    value="<?php echo $row["taskId"]; ?>">
+                                                <button class="btn btn-primary" type="submit"
+                                                    name="deleteTask">Delete</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <form method="POST">
+                                                <input type="hidden" name="taskId"
+                                                    value="<?php echo $row["taskId"]; ?>">
+                                                <button class="btn btn-primary" type="submit"
+                                                    name="editTask">Edit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php $i++;}?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-2">
                 <!-- Default Card Example -->
                 <div class="card ">
                     <div class="card-body">
@@ -153,64 +196,8 @@ if (isset($_POST["updateTask"])) {
                         </form>
                     </div>
                 </div>
-
-        </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-                <h6 class="m-0 font-weight-bold text-primary">List of Tasks</h6>
-            </div>
-
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Tasks</th>
-                                <th class="text-center">Action</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1;
-while ($row = mysqli_fetch_array($viewTask)) {?>
-                            <tr>
-                                <td class="text-center"><?php echo $i; ?></td>
-                                <td class="text-center"><?php echo $row["taskName"]; ?></td>
-                                <td class="text-center">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <form method="POST">
-                                                <input type="hidden" name="taskId"
-                                                    value="<?php echo $row["taskId"]; ?>">
-                                                <button class="btn btn-primary" type="submit"
-                                                    name="deleteTask">Delete</button>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <form method="POST">
-                                                <input type="hidden" name="taskId"
-                                                    value="<?php echo $row["taskId"]; ?>">
-
-                                                <button class="btn btn-primary" type="submit"
-                                                    name="editTask">Edit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php $i++;}?>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
-
     </div>
     <?php include 'includes/script.php';?>
 </body>

@@ -14,4 +14,10 @@
     <!-- Page level custom scripts -->
     <script src="theme/js/demo/datatables-demo.js"></script>
 
- 
+ <script>
+     $('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('target') // Extract info from data-* attributes
+
+})
+ </script>
