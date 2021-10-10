@@ -14,10 +14,19 @@
     <!-- Page level custom scripts -->
     <script src="theme/js/demo/datatables-demo.js"></script>
 
- <script>
-     $('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('target') // Extract info from data-* attributes
+<script>
+  $(document).ready(function(){
+    $('.editTaskButton').on('click', function(){
+      $('#editTask').modal('show');
+      $tr = $(this).closest('tr');
 
-})
- </script>
+var data = $tr.children("td").map(function () {
+    return $(this).text();
+}).get();
+$('#taskId').val(data[0]);
+$('#taskName').val(data[1]);
+    });
+  });
+
+
+</script>
