@@ -38,7 +38,10 @@ function DeleteTask($taskId)
 function EditTask($taskId, $taskName)
 {
     $conn = DbConnection();
-    $editTask = "UPDATE tasks SET taskName = '$taskName' WHERE taskId = '$taskId'";
+    $editTask = "UPDATE tasks 
+                 SET taskName = '$taskName' 
+                 WHERE taskId = '$taskId'";
+                 echo $editTask;
     $result = mysqli_query($conn, $editTask);
     return $result;
 }
