@@ -23,8 +23,8 @@
 var data = $tr.children("td").map(function () {
     return $(this).text();
 }).get();
-
-$('#taskName').val(data[1]);
+$('#taskId').val(data[1]);
+$('#taskName').val(data[2]);
     });
   });
 

@@ -71,13 +71,12 @@ if (isset($_POST["deleteTask"])) {
     }
 }
 
-
 /** This block runs when edit is pressed then we have edit form in which we change the value and on pressing update the value is edited and updated in the database */
 if (isset($_POST["updateTask"])) {
     
         $taskId = $_POST["taskId"];
         $taskName = $_POST["taskName"];
-        print_r($_POST);
+        
         $updateTask = EditTask($taskId, $taskName);
         if ($updateTask) {
             echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
@@ -143,6 +142,7 @@ if (isset($_POST["updateTask"])) {
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
+                                <th style="display: none;"></th>
                                 <th class="text-center">Tasks</th>
                                 <th class="text-center">Action</th>
 
@@ -153,6 +153,7 @@ if (isset($_POST["updateTask"])) {
                             while ($row = mysqli_fetch_array($viewTask)) { ?>
                                 <tr>
                                     <td class="text-center"><?php echo $i; ?></td>
+                                    <td style="display: none;"><?php echo $row["taskId"]; ?></td>
                                     <td class="text-center"><?php echo $row["taskName"]; ?></td>
                                     <td>
                                         <div class="row">
@@ -180,7 +181,7 @@ if (isset($_POST["updateTask"])) {
                                                                 <div class="card ">
                                                                     <div class="card-body">
                                                                         <form method="POST">
-                                                                            <input type="text" name="taskId" value="<?php echo $row["taskId"]; ?>">
+                                                                            <input type="hidden" name="taskId" id="taskId">
                                                                             <div class="form-group">
                                                                                 <label>Enter Task</label>
                                                                                 <input type="text" class="form-control" id="taskName" name="taskName">
